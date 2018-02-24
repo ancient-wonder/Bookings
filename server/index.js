@@ -1,9 +1,8 @@
 const express = require('express');
-const db = require('../database/index.js');
+let db = require('../database/');
 let app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
@@ -17,11 +16,10 @@ app.listen(port, function() {
 });
 
 app.get('/bookings/:id', function (req, res) {
-
-  res.send('hiiiii');
-  //want to make a request to database getting document at id...
-  //send back document that matches that id...
-
+  let cb = function (data) {
+    res.send(data);
+  }
+  db.find(req.params.id, cb);
 });
 
 

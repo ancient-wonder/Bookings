@@ -25,7 +25,7 @@ const save = (singleBooking, callback) => {
     cost: singleBooking.cost,
     minStay: singleBooking.min_stay,
     maxStay: singleBooking.max_stay,
-    maxStay: singleBooking.children_allowed
+    childrenAllowed: singleBooking.children_allowed
   });
   newBooking.save(function (err, fluffy) {
     if (err) {
@@ -41,16 +41,19 @@ const other = () => {
     save(data[i]);
   }
 }
+
 //other();
 
 const find = (id, callback) => {
-  Book.find({id : id}, function (err, item){
+  Booking.find({id : id}, function (err, item){
     callback(item);
   })
 }
 
 
-
+module.exports.find = find;
 module.exports.db = mongoose;
-module.exports = Booking;
-module.exports = save;
+module.exports.booking = Booking;
+module.exports.save = save;
+
+
