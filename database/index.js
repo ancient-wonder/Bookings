@@ -55,5 +55,3 @@ module.exports.find = find;
 module.exports.db = mongoose;
 module.exports.booking = Booking;
 module.exports.save = save;
-
-

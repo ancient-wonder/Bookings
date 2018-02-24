@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "nodemon server/index.js",
-    "dev-react": "webpack -d --watch"
+    "dev-react": "webpack -d --watch",
+     "test": "jest"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -33,6 +34,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "jest": "^22.4.2"
   }
 }
