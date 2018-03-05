@@ -7,50 +7,10 @@ import Ratings from './components/Ratings.js';
 import Guests from './components/Guests.js';
 import MdClear from 'react-icons/lib/md/clear';
 import BookingPrices from './components/BookingPrices.js';
-import ReactRouter, { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+import axios from 'axios';
 
-class Bookings extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data : {"id":1,"unavailable_dates":["3/27/2018","3/7/2018","5/26/2018","3/3/2018","4/10/2018","4/23/2018","4/16/2018","4/22/2018","3/31/2018","4/2/2018","2/25/2018","5/10/2018","5/24/2018","4/8/2018","5/18/2018","3/21/2018","4/9/2018","2/25/2018","5/21/2018","5/3/2018","5/23/2018","3/13/2018","3/16/2018","4/17/2018","5/25/2018","4/9/2018","5/19/2018","4/30/2018","3/13/2018","4/1/2018","5/14/2018","4/8/2018","3/12/2018"],"rating":3,"rating_amount":81,"guest_max":4,"cost":187,"min_stay":3,"max_stay":25,"children_allowed":true},
-      invalidDate: false,
-      readyToBook: false,
-      booked: 'Book'
-    }
-    this.handleInvalidDates = this.handleInvalidDates.bind(this);
-    this.handleBook = this.handleBook.bind(this);
-  }
-  handleInvalidDates (option) {
-    //console.log('date is invalid')
-    if(option === true){
-      console.log('not ready to book')
-      this.setState(function(){
-        return {
-          invalidDate: true,
-          readyToBook: false,
-        }
-      })
-    } else {
-      console.log('ready to book')
-      this.setState(function(){
-        return {
-          invalidDate: false,
-          readyToBook: true,
-        }
-      })
-    }
-  }
-  handleBook () {
-    console.log('booked has ran');
-    this.setState(function() {
-      return {
-        booked: 'Room has been booked',
-      }
-    })
-  }
-  render () {
-    const Bookings = styled.div`
+    const BookingsMain = styled.div`
       width: 396px;
       height: 329px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -74,8 +34,6 @@ class Bookings extends React.Component {
         border-style: solid;
       }
     `;
-
-
     const Price = styled.div`
       font-family: 'Quicksand', sans-serif;
       width: 300px;
@@ -107,7 +65,6 @@ class Bookings extends React.Component {
       z-index: -1;
     `;
     const Fake = styled.div`
-
       height: 50px;
       width: 50px;
     `;
@@ -127,12 +84,67 @@ class Bookings extends React.Component {
     const BookingOptions = styled.div`
       display: flex;
       justify-content: space-between;
-      width: 350px;
+      width: 300px;
     `;
 
-    return (
-      <Bookings>
+class Bookings extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data : {"id":1,"unavailable_dates":["3/27/2018","3/7/2018","5/26/2018","3/3/2018","4/10/2018","4/23/2018","4/16/2018","4/22/2018","3/31/2018","4/2/2018","2/25/2018","5/10/2018","5/24/2018","4/8/2018","5/18/2018","3/21/2018","4/9/2018","2/25/2018","5/21/2018","5/3/2018","5/23/2018","3/13/2018","3/16/2018","4/17/2018","5/25/2018","4/9/2018","5/19/2018","4/30/2018","3/13/2018","4/1/2018","5/14/2018","4/8/2018","3/12/2018"],"rating":3,"rating_amount":81,"guest_max":4,"cost":187,"min_stay":3,"max_stay":25,"children_allowed":true},
+      invalidDate: false,
+      readyToBook: false,
+      booked: 'Book'
+    }
+    this.handleInvalidDates = this.handleInvalidDates.bind(this);
+    this.handleBook = this.handleBook.bind(this);
+    this.fetchInfo = this.fetchInfo.bind(this);
+  }
+  componentDidMount () {
+    this.fetchInfo();
+  }
+  fetchInfo () {
+    console.log(this.props.match.params.id)
+    let id = this.props.match.params.id;
+    axios.get(`https://localhost:1128/bookings/${id}`);
+      .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  handleInvalidDates (option) {
+    if(option === true){
+      console.log('not ready to book')
+      this.setState(function(){
+        return {
+          invalidDate: true,
+          readyToBook: false,
+        }
+      })
+    } else {
+      console.log('ready to book')
+      this.setState(function(){
+        return {
+          invalidDate: false,
+          readyToBook: true,
+        }
+      })
+    }
+  }
+  handleBook () {
+    console.log('booked has ran');
+    this.setState(function() {
+      return {
+        booked: 'Room has been booked',
+      }
+    })
+  }
+  render () {
 
+    return (
+      <BookingsMain>
         <Price>
           <Amount>
             ${this.state.data.cost}
@@ -147,7 +159,7 @@ class Bookings extends React.Component {
         </BookingOptions>
         {this.state.invalidDate === false ? <Book onClick={this.handleBook}> {this.state.booked}</Book> : <InvalidBook> Dates not available</InvalidBook>}
         <Fake onClick={this.handleBook}> </Fake>
-      </Bookings>
+      </BookingsMain>
     )
   }
 }
@@ -157,7 +169,7 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Route exact path='/' component={Bookings} />
+          <Route path='/bookings/:id' component={Bookings} />
         </div>
       </Router>
     );

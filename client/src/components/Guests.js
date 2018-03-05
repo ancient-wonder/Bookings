@@ -1,72 +1,104 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
+const Main = styled.div`
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Quicksand', sans-serif;
+  text-align: left;
+  direction: rtl
+`;
+const Guest = styled.div`
+  font-size: 12px;
+  color: grey;
+`;
+const SelectGuests = styled.button`
+  height: 42px;
+  width: 131px;
+  background-color: white;
+  border-color: #cccccc;
+  border-radius: 2px;
+`;
+const GuestChoices = styled.div`
+  height: 306px;
+  width: 280px;
+  align: right;
+  margin-left:auto; margin-right:0;
+
+  align-self: flex-end;
+  float: right;
+  direction: ltr
+`;
+const MainGuestSelection = styled.div`
+  height: 306px;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-around;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  z-index: 3;
+`;
+const GuestMax = styled.div`
+  height: 65px;
+  width: 275px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 5px;
+`;
+const Choice = styled.div `
+  height: 65px;
+  width: 280px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+const DisableChoice = Choice.extend`
+  color: grey;
+  border-color: grey;
+`;
+
+ const UpCountMain = styled.div`
+   width: 70px;
+   height: 30px;
+   font-size: 20px;
+ `;
+ const UpCount = styled.button `
+  width: 40px;
+  height: 40px;
+  border-color: #55b0b2;
+  color: #55b0b2;
+  border-radius: 50%;
+  font-size: 20px;
+
+`;
+const Close = styled.button `
+  width: 50px;
+  align-self: flex-end;
+  border: none;
+  color: #55b0b2;
+  &: hover {
+    text-decoration: underline;
+  }
+`;
+const Test = styled.div`
+width: 40px;
+  height: 40px;
+`;
+const DisableCount = UpCount.extend`
+  color: grey;
+  border-color: grey;
+`;
+
 let GuestSelection = (props) => {
-    const Main = styled.div`
-      height: 306px;
-      width: 280px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: space-around;
-      background-color: white;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      border-radius: 5px;
-      z-index: 3;
-    `;
-    const GuestMax = styled.div`
-      height: 65px;
-      width: 275px;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      margin-left: 5px;
-    `;
-    const Choice = styled.div `
-      height: 65px;
-      width: 280px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    `;
-    const DisableChoice = Choice.extend`
-      color: grey;
-      border-color: grey;
-    `;
-
-     const UpCountMain = styled.div`
-       width: 70px;
-       height: 30px;
-       font-size: 20px;
-     `;
-     const UpCount = styled.button `
-      width: 40px;
-      height: 40px;
-      border-color: #55b0b2;
-      color: #55b0b2;
-      border-radius: 50%;
-      font-size: 20px;
-
-    `;
-    const Close = styled.button `
-      width: 50px;
-      align-self: flex-end;
-      border: none;
-      color: #55b0b2;
-      &: hover {
-        text-decoration: underline;
-      }
-    `;
-    const Test = styled.div`
-    width: 40px;
-      height: 40px;
-    `;
-    const DisableCount = UpCount.extend`
-      color: grey;
-      border-color: grey;
-    `;
     return (
-     <Main>
+     <MainGuestSelection>
       <Choice> <UpCountMain> Adult</UpCountMain> <UpCount onClick={ () => (props.handleAddGuest('adult', 'subtract'))}>-</UpCount> {props.adultAmount}{props.maxHit === true ? <DisableCount> +</DisableCount> : <UpCount onClick={ () => (props.handleAddGuest('adult', 'add'))}>+</UpCount>} </Choice>
       {props.childrenAllowed === true
         ? <Choice>  <UpCountMain>Children </UpCountMain> <UpCount onClick={ () => (props.handleAddGuest('children', 'subtract'))}>-</UpCount> {props.childrenAmount}{props.maxHit === true ? <DisableCount> +</DisableCount> : <UpCount onClick={ () => (props.handleAddGuest('children', 'add'))}>+</UpCount>} </Choice>
@@ -78,7 +110,7 @@ let GuestSelection = (props) => {
       }
       <GuestMax> {props.guestMax} guests maximum. Infants don’t count toward the number of guests.</GuestMax>
       <Close onClick={props.close}> Close</Close>
-     </Main>
+     </MainGuestSelection>
     )
 
 }
@@ -152,33 +184,11 @@ class Guests extends React.Component {
 
   }
   render () {
-    const Main = styled.div`
-      width: 100px;
-      height: 100px;
-      display: flex;
-      flex-direction: column;
-      font-family: 'Quicksand', sans-serif;
-      text-align: left;
-      direction: rtl
-    `;
-    const SelectGuests = styled.button`
-    height: 42px;
-    width: 131px;
-    `;
-    const GuestChoices = styled.div`
-      height: 306px;
-      width: 280px;
-      align: right;
-      margin-left:auto; margin-right:0;
 
-      align-self: flex-end;
-      float: right;
-      direction: ltr
-    `;
 
     return (
       <Main>
-        Guests
+        <Guest> Guests </Guest>
         <SelectGuests onClick={this.toggleShowComponent}>
          {this.state.guestAmount} Guest
         </SelectGuests>

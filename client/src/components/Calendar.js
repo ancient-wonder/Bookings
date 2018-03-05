@@ -8,6 +8,13 @@ import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'rea
 import 'react-dates/lib/css/_datepicker.css';
 //import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
+const Dates = styled.div`
+  font-size: 12px;
+  color: grey;
+  font-family: 'Quicksand', sans-serif;
+  margin-left: 15px;
+`;
+
 class Calendar extends React.Component {
   constructor (props) {
     super(props)
@@ -116,9 +123,10 @@ class Calendar extends React.Component {
   }
 
   render() {
+
     return (
       <div>
-        Dates
+        <Dates> Dates </Dates>
         <DatePicker
           selected={this.state.startDate}
           selectsStart
@@ -129,7 +137,6 @@ class Calendar extends React.Component {
           minDate={moment()}
           maxDate={moment().add(3, "months")}
         />
-
         <DatePicker
           selected={this.state.endDate}
           selectsEnd
@@ -139,7 +146,6 @@ class Calendar extends React.Component {
           minDate={moment().add(1, "days")}
           excludeDates={this.state.excludeDates}
           maxDate={moment().add(3, "months")}
-
         />
       </div>
   )}
