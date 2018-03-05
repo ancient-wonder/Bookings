@@ -7,6 +7,8 @@ import Ratings from './components/Ratings.js';
 import Guests from './components/Guests.js';
 import MdClear from 'react-icons/lib/md/clear';
 import BookingPrices from './components/BookingPrices.js';
+import ReactRouter, { Route, BrowserRouter as Router } from 'react-router-dom';
+
 class Bookings extends React.Component {
   constructor(props) {
     super(props);
@@ -143,11 +145,24 @@ class Bookings extends React.Component {
         <Calendar handleInvalidDates={this.handleInvalidDates}/>
         <Guests children_allowed={this.state.data.children_allowed} guest_max={this.state.data.guest_max}/>
         </BookingOptions>
-        {this.state.invalidDate === false ? <Book onClick={this.handleBook}> {this.state.booked} here</Book> : <InvalidBook> Dates not available</InvalidBook>}
+        {this.state.invalidDate === false ? <Book onClick={this.handleBook}> {this.state.booked}</Book> : <InvalidBook> Dates not available</InvalidBook>}
         <Fake onClick={this.handleBook}> </Fake>
       </Bookings>
     )
   }
 }
 
-ReactDOM.render(<Bookings />, document.getElementById('app'));
+class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <div>
+          <Route exact path='/' component={Bookings} />
+        </div>
+      </Router>
+    );
+  }
+}
+
+
+ReactDOM.render(<App />, document.getElementById('app'));
