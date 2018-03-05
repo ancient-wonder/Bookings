@@ -106,13 +106,24 @@ class Bookings extends React.Component {
   fetchInfo () {
     console.log(this.props.match.params.id)
     let id = this.props.match.params.id;
-    axios.get(`https://localhost:1128/bookings/${id}`);
-      .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // axios.get(`http://localhost:1128/bookings`)
+    //   .then(function (response) {
+    //   console.log('response', response);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+    axios.get('http://localhost:1128/bookings', {
+    params: {
+      id: 6
+    }
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
   }
   handleInvalidDates (option) {
     if(option === true){
