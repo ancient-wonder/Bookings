@@ -28,7 +28,7 @@ class Calendar extends React.Component {
     this.state = {
       startDate: moment(),
       unavailbleDates: [],
-      excludeDates: [moment().add(1, "days"), moment().add(3, "days")],
+      excludeDates: [moment().add(1, "days"), moment().add(3, "days"), moment('2018/3/20')],
     };
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
@@ -38,9 +38,12 @@ class Calendar extends React.Component {
   }
   componentDidMount () {
     this.populateUnavailableDates();
+    console.log('here', this.props.ud);
+    console.log(moment().add(1, "days"));
   }
   populateUnavailableDates () {
 
+    console.log(this.props.ud);
   }
   handleChangeStart(date) {
     this.setState({
@@ -78,9 +81,6 @@ class Calendar extends React.Component {
      var toDate = this.state.endDate;
      var count = 0;
      var validDate = true
-      console.log(fromDate)
-
-      console.log('this ran')
       for(var i = 0; i < this.state.excludeDates.length; i++){
         if(this.state.excludeDates[i] > fromDate && this.state.excludeDates[i] < date){
           this.props.handleInvalidDates(validDate);
@@ -103,7 +103,6 @@ class Calendar extends React.Component {
       endDate: date
     });
     setTimeout(this.checkChangeEnd(date), 1000);
-
   }
 
   render() {
