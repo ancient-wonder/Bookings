@@ -120,21 +120,26 @@ class Bookings extends React.Component {
     }
   }
   fetchInfo () {
-    console.log(this.props.match.params.id)
     let id = this.props.match.params.id;
     let context = this;
-    axios.get(`http://localhost:1128/bookings/${id}`)
+    axios.get(`http://localhost:3002/api/bookings/${id}`)
       .then(function (response) {
-        console.log('Response', response);
+        console.log(response);
+        var arr = [];
+        for (var i = 0; i < response.data[0].unavailableDates.length; i++) {
+          arr.push(response.data[0].unavailableDates[i])
+        }
         context.setState(function(){
           return {
-            data : response.data[0]
+            data : response.data[0],
+            unavailableDates: arr,
           }
         })
       })
       .catch(function (error) {
         console.log('error', error);
-      });
+      })
+
   }
   handleInvalidDates (option) {
     if(option === true){
@@ -186,7 +191,7 @@ class Bookings extends React.Component {
         </Price>
         <Line/>
         <BookingOptions>
-        <Calendar handleInvalidDates={this.handleInvalidDates}/>
+        <Calendar handleInvalidDates={this.handleInvalidDates} ud={this.state.unavailableDates}/>
         <Guests children_allowed={this.state.data.childrenAllowed} guest_max={this.state.data.guestMax} handleGuest={this.handleGuest} toggleBook={this.toggleBook}/>
         </BookingOptions>
         <Fake onClick={this.handleBook}></Fake>
@@ -203,14 +208,13 @@ class Bookings extends React.Component {
 
 
 
-
 export default class App extends React.Component {
   render() {
     return (
       <Router>
         <div>
-          <Route path='/' exact render={() => {
-            return <p>HOME</p>
+          <Route path='/' exact render={(props) => {
+            return  <Bookings {...props} />
           }} />
           <Route path='/bookings/:id' component={Bookings} />
         </div>

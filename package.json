@@ -8,8 +8,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "nodemon server/index.js",
-    "dev-react": "webpack-dev-server",
+    "start": "webpack -w & nodemon server/index.js",
     "test": "jest"
   },
   "devDependencies": {
