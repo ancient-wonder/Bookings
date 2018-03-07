@@ -25,4 +25,4 @@ class BookingPrices extends React.Component {
   }
 }
 
-export default BookingPrices;
+export default BookingPrices
