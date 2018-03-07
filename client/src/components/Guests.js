@@ -42,7 +42,7 @@ const MainGuestSelection = styled.div`
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
-  z-index: 3;
+  z-index: 10;
 `;
 const GuestMax = styled.div`
   height: 65px;
@@ -76,7 +76,6 @@ const DisableChoice = Choice.extend`
   color: #55b0b2;
   border-radius: 50%;
   font-size: 20px;
-
 `;
 const Close = styled.button `
   width: 50px;
@@ -139,6 +138,11 @@ class Guests extends React.Component {
         showComponent: false
       }))
     }
+    this.props.handleGuest(this.state.adultAmount);
+    this.props.toggleBook();
+  }
+  componentDidMount() {
+    this.props.handleGuest(this.state.adultAmount);
   }
   handleAddGuest (guest, option) {
     let stateOption = guest + 'Amount';
