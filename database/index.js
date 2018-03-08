@@ -42,7 +42,6 @@ const other = () => {
   }
 }
 
-//other();
 
 const find = (id, callback) => {
   Booking.find({id : id}, function (err, item){
@@ -50,7 +49,7 @@ const find = (id, callback) => {
   })
 }
 
-
+module.exports.other = other;
 module.exports.find = find;
 module.exports.db = mongoose;
 module.exports.booking = Booking;
