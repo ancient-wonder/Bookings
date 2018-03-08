@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "webpack -w & nodemon server/index.js",
-    "seed" : "database/seed.js",
+    "seed" : "node database/seed.js",
     "test": "jest"
   },
   "devDependencies": {
