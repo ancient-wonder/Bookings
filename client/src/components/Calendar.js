@@ -5,7 +5,9 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-dates/lib/css/_datepicker.css';
 //import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+const Main = styled.div `
 
+`;
 const Dates = styled.div`
   font-size: 12px;
   color: grey;
@@ -13,14 +15,13 @@ const Dates = styled.div`
   margin-left: 15px;
 `;
 const CustomInput = styled.input`
-  width: 65px;
-  height: 35px;
+  width: 75px;
+  height: 42px;
 `;
 const CalendarMain = styled.div`
-  height: 40px;
+  height: 42px;
   width: 130px;
   display: flex;
-  z-index: -1;
 `;
 class Calendar extends React.Component {
   constructor (props) {
@@ -29,12 +30,14 @@ class Calendar extends React.Component {
       startDate: moment(),
       unavailbleDates: [],
       excludeDates: [moment().add(1, "days"), moment().add(3, "days"), moment('2018/3/20')],
+      main: 'Main'
     };
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
     this.checkChangeEnd = this.checkChangeEnd.bind(this);
     this.populateUnavailableDates = this.populateUnavailableDates.bind(this);
     this.checkChangeStart = this.checkChangeStart.bind(this);
+    this.toggleRender = this.toggleRender.bind(this);
   }
   componentDidMount () {
     this.populateUnavailableDates();
@@ -115,11 +118,24 @@ class Calendar extends React.Component {
     });
     setTimeout(this.checkChangeEnd(date), 1000);
   }
-
+  toggleRender () {
+    if(this.state.main === 'main'){
+      this.setState(function () {
+        return {
+          main : 'back'
+        }
+      })
+    } else {
+      this.setState(function () {
+        return {
+          main : 'main'
+        }
+      })
+    }
+  }
   render() {
-
     return (
-      <div>
+      <Main onClick={this.toggleRender}>
         <Dates> Dates </Dates>
         <CalendarMain>
           <DatePicker
@@ -145,7 +161,7 @@ class Calendar extends React.Component {
             maxDate={moment().add(3, "months")}
           />
         </CalendarMain>
-      </div>
+      </Main>
   )}
 }
 
