@@ -21,6 +21,7 @@ const SelectGuests = styled.button`
   background-color: white;
   border-color: #cccccc;
   border-radius: 2px;
+
 `;
 const GuestChoices = styled.div`
   height: 306px;
@@ -43,6 +44,7 @@ const MainGuestSelection = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
   z-index: 10;
+  margin-top: 35px;
 `;
 const GuestMax = styled.div`
   height: 65px;
@@ -65,11 +67,11 @@ const DisableChoice = Choice.extend`
 `;
 
  const UpCountMain = styled.div`
-   width: 70px;
+   width: 80px;
    height: 30px;
    font-size: 20px;
  `;
- const UpCount = styled.button `
+ const UpCount = styled.button`
   width: 40px;
   height: 40px;
   border-color: #55b0b2;

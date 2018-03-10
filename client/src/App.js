@@ -251,7 +251,7 @@ export default class App extends React.Component {
           <Route path='/' exact render={(props) => {
             return  <Bookings {...props} />
           }} />
-          <Route path='/bookings/:id' component={Bookings} />
+          <Route path='/:bookings/:id' component={Bookings} />
         </div>
       </Router>
     );
