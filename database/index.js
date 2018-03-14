@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const data = require('./fakeData.js');
+
 mongoose.connect('mongodb://localhost/bookings');
-const data = require('../fakeData.js');
 
 let bookingsSchema = mongoose.Schema({
   id: Number,
@@ -15,7 +16,7 @@ let bookingsSchema = mongoose.Schema({
 });
 
 let Booking = mongoose.model('Booking', bookingsSchema);
-const save = (singleBooking, callback) => {
+const save = (singleBooking) => {
   const newBooking = new Booking({
     id: singleBooking.id,
     unavailableDates: singleBooking.unavailable_dates,
@@ -27,21 +28,8 @@ const save = (singleBooking, callback) => {
     maxStay: singleBooking.max_stay,
     childrenAllowed: singleBooking.children_allowed
   });
-  newBooking.save(function (err, fluffy) {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log('successfully saved');
-    }
-  })
+  return newBooking.save();
 };
-
-const other = () => {
-  for (var i = 0; i < data.length; i++) {
-    save(data[i]);
-  }
-}
-
 
 const find = (id, callback) => {
   Booking.find({id : id}, function (err, item){
@@ -49,7 +37,6 @@ const find = (id, callback) => {
   })
 }
 
-module.exports.other = other;
 module.exports.find = find;
 module.exports.db = mongoose;
 module.exports.booking = Booking;

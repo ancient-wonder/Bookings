@@ -10,6 +10,7 @@
   "scripts": {
     "start": "webpack -w & nodemon server/index.js",
     "seed": "node database/seed.js",
+    "db-test": "node database/insertionTest.js",
     "test": "jest"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
   },
   "dependencies": {
     "axios": "^0.16.0",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
