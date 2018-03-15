@@ -3,7 +3,7 @@ const data = require('./fakeData.js');
 
 mongoose.connect('mongodb://localhost/bookings');
 
-let bookingsSchema = mongoose.Schema({
+const bookingsSchema = mongoose.Schema({
   id: Number,
   unavailableDates: Array,
   rating: Number,
@@ -14,9 +14,9 @@ let bookingsSchema = mongoose.Schema({
   maxStay: Number,
   childrenAllowed: Boolean
 });
+const Booking = mongoose.model('Booking', bookingsSchema);
 
-let Booking = mongoose.model('Booking', bookingsSchema);
-const save = (singleBooking) => {
+function save(singleBooking) {
   const newBooking = new Booking({
     id: singleBooking.id,
     unavailableDates: singleBooking.unavailable_dates,
@@ -31,7 +31,11 @@ const save = (singleBooking) => {
   return newBooking.save();
 };
 
-const find = (id, callback) => {
+function saveMany(array) {
+  return Booking.insertMany(array);
+}
+
+function find(id, callback) {
   Booking.find({id : id}, function (err, item){
     callback(item);
   })
@@ -41,3 +45,4 @@ module.exports.find = find;
 module.exports.db = mongoose;
 module.exports.booking = Booking;
 module.exports.save = save;
+module.exports.saveMany = saveMany;
