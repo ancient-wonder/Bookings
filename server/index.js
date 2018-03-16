@@ -10,8 +10,6 @@ app.use(cors());
 let port = 3002;
 
 app.get('/api/bookings/:id', function (req, res) {
-
-
   let cb = function (data) {
     res.send(data);
   }

@@ -10,7 +10,8 @@
   "scripts": {
     "start": "webpack -w & nodemon server/index.js",
     "seed": "node database/seed.js",
-    "db-test": "node database/insertData.js",
+    "db-mongo": "node database/seedMongo.js",
+    "db-postgres": "node database/seedPostgres.js",
     "test": "jest"
   },
   "devDependencies": {
@@ -19,7 +20,12 @@
     "babel-preset-env": "^1.2.2",
     "babel-preset-react": "^6.23.0",
     "css-loader": "^0.27.3",
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
     "faker": "^4.1.0",
     "html-webpack-plugin": "^2.28.0",
     "jest": "^22.4.2",
@@ -36,6 +42,8 @@
     "moment": "^2.21.0",
     "mongoose": "^5.0.9",
     "nodemon": "^1.15.1",
+    "pg": "^7.4.1",
+    "pg-promise": "^8.2.2",
     "prop-types": "^15.5.4",
     "react": "^16.2.0",
     "react-datepicker": "^1.2.2",
