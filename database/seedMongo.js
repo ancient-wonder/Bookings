@@ -1,8 +1,8 @@
 const { createData } = require('./createData');
-const db = require('./index');
+const db = require('./mongoSchema');
 
 function batchInsert(index) {
-  const insertionCount = 250000;
+  const insertionCount = 100000;
   const dataArray = [];
   for (let i = 1; i <= insertionCount; i++) {
     const entry = createData(i + index);
@@ -14,9 +14,12 @@ function batchInsert(index) {
 
 async function batchInsertNTimes(n) {
   for (let i = 0; i < n; i++) {
-    await batchInsert(i * 250000);
+    await batchInsert(i * 100000);
   }
   console.log('done');
 }
 
-batchInsertNTimes(1);
+// batchInsertNTimes(100);
+for (var i = 0; i < 4; i++) {
+  console.log(createData(i));
+}

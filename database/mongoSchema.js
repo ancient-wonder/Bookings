@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/bookings');
 
 const bookingsSchema = mongoose.Schema({
-  id: Number,
+  id: {
+    type: Number,
+    unique: true,
+  },
   unavailable_dates: Array,
   rating: Number,
   rating_count: Number,
