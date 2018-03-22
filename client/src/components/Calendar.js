@@ -43,7 +43,7 @@ class Calendar extends React.Component {
   componentDidMount() {
     this.populateUnavailableDates();
   }
-  
+
   populateUnavailableDates() {
     let final = [];
     for (let i = 0; i < this.props.unavailableDates.length; i++) {
