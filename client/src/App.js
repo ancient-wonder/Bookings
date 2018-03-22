@@ -95,35 +95,18 @@ class Bookings extends React.Component {
       readyToBook: false,
       booked: 'Book',
       renderBook: true,
-      unavailableDates: [moment('2018/3/20')]
     }
     this.handleInvalidDates = this.handleInvalidDates.bind(this);
     this.handleBook = this.handleBook.bind(this);
     this.fetchInfo = this.fetchInfo.bind(this);
     this.handleGuest = this.handleGuest.bind(this);
     this.toggleBook = this.toggleBook.bind(this);
-    this.addInvalidDates = this.addInvalidDates.bind(this);
   }
-  componentDidMount () {
+  componentDidMount() {
     this.fetchInfo();
-     let id = this.props.match.params.id;
-    let context = this;
-    var arr = [];
-    axios.get(`http://localhost:3002/api/bookings/${id}`)
-      .then(function (response) {
-        context.addInvalidDates(response.data[0].unavailableDates);
-        context.setState(function(){
-          return {
-            data : response.data[0],
-          }
-        })
-      })
-      .catch(function (error) {
-        console.log('error', error);
-      })
-    console.log('here', this.state.data.unavailableDates);
   }
-  toggleBook () {
+
+  toggleBook() {
     if(this.state.renderBook === true){
       this.setState(function(){
         return {
@@ -138,44 +121,15 @@ class Bookings extends React.Component {
       })
     }
   }
-  fetchInfo () {
-    return this.state.unavailableDates;
-    // let id = this.props.match.params.id;
-    // let context = this;
-    // var arr = [];
-    // axios.get(`http://localhost:3002/api/bookings/${id}`)
-    //   .then(function (response) {
-    //     context.addInvalidDates(response.data[0].unavailableDates);
-    //     context.setState(function(){
-    //       return {
-    //         data : response.data[0],
-    //       }
-    //     })
-    //   })
-    //   .catch(function (error) {
-    //     console.log('error', error);
-    //   })
-    // console.log('here', this.state.data.unavailableDates);
+  fetchInfo() {
+    let id = this.props.match.params.id;
+    axios.get(`http://localhost:3002/api/bookings/${id}`)
+      .then((response) => {
+        this.setState(() => ({ data: response.data[0] }));
+      })
+      .catch(error => (console.log('error', error)));
   }
-  addInvalidDates (date) {
-    console.log(date[0]);
-    console.log()
-    var final = [];
-    for(var i = 0; i < date.length; i++){
 
-      var correct = date[i].split('/')
-      var last = correct.pop();
-      correct.unshift(last);
-      correct = correct.join('/');
-      console.log(correct);
-      final.push(moment(correct));
-    }
-    this.setState(function(){
-      return {
-        unavailableDates: final
-      }
-    })
-  }
   handleInvalidDates (option) {
     if(option === true){
       console.log('not ready to book')
@@ -195,7 +149,8 @@ class Bookings extends React.Component {
       })
     }
   }
-  handleGuest (adultAmount) {
+
+  handleGuest(adultAmount) {
     if(adultAmount >= 1) {
       this.setState(function () {
         return {
@@ -204,7 +159,8 @@ class Bookings extends React.Component {
       })
     }
   }
-  handleBook () {
+
+  handleBook() {
     console.log('booked has ran');
     if(this.state.invalidDate === false && this.state.guestReady === true){
       this.setState(function() {
@@ -214,6 +170,7 @@ class Bookings extends React.Component {
       })
     }
   }
+
   render () {
     return (
       <BookingsMain>
@@ -226,7 +183,7 @@ class Bookings extends React.Component {
         </Price>
         <Line/>
         <BookingOptions>
-        <Calendar handleInvalidDates={this.handleInvalidDates} ud={this.state.unavailableDates} fetchInfo={this.fetchInfo.bind(this)}/>
+        <Calendar handleInvalidDates={this.handleInvalidDates} unavailableDates={this.state.data.unavailable_dates}/>
         <Guests children_allowed={this.state.data.childrenAllowed} guest_max={this.state.data.guestMax} handleGuest={this.handleGuest} toggleBook={this.toggleBook}/>
         </BookingOptions>
         <Fake onClick={this.handleBook}></Fake>

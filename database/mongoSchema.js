@@ -37,10 +37,8 @@ function saveMany(array) {
   return Booking.insertMany(array);
 }
 
-function find(id, callback) {
-  Booking.find({ id }, (err, item) => {
-    callback(item);
-  });
+function find(id) {
+  return Booking.find({ id });
 }
 
 module.exports.find = find;

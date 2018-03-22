@@ -24,14 +24,14 @@ const CalendarMain = styled.div`
   display: flex;
 `;
 class Calendar extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       startDate: moment(),
-      unavailbleDates: [],
-      excludeDates: [moment().add(1, "days"), moment().add(3, "days"), moment('2018/3/20')],
-      main: 'Main'
+      excludeDates: [],
+      main: 'Main',
     };
+
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
     this.checkChangeEnd = this.checkChangeEnd.bind(this);
@@ -39,33 +39,31 @@ class Calendar extends React.Component {
     this.checkChangeStart = this.checkChangeStart.bind(this);
     this.toggleRender = this.toggleRender.bind(this);
   }
-  componentDidMount () {
-    this.populateUnavailableDates();
-    console.log('here', this.props.ud);
-    console.log(moment().add(1, "days"));
-  }
-  populateUnavailableDates () {
-    var func = this.props.fetchInfo;
-    var context = this;
-    setTimeout(function() {
-      var result = func();
-      context.setState(function(){
-        return {
-          excludeDates: result
-        }
-      })
-      console.log('should be arr', func());
-    }, 2000);
 
-    console.log('right here', this.props.ud);
+  componentDidMount() {
+    this.populateUnavailableDates();
   }
+  
+  populateUnavailableDates() {
+    let final = [];
+    for (let i = 0; i < this.props.unavailableDates.length; i++) {
+      let correct = this.props.unavailableDates[i].split('/');
+      let last = correct.pop();
+      correct.unshift(last);
+      correct = correct.join('/');
+      final.push(moment(correct));
+    }
+    this.setState(() => ({ excludeDates: final }));
+  }
+
   handleChangeStart(date) {
     this.setState({
-      startDate: date
+      startDate: date,
     });
     setTimeout(this.checkChangeStart(date), 1000);
   }
-  checkChangeStart (date) {
+
+  checkChangeStart(date) {
     if(this.state.endDate){
       var endDate = this.state.endDate;
       console.log('there is an end date!');
