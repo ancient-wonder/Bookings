@@ -1,0 +1,13 @@
+config:
+  target: 'http://localhost:3002'
+  phases:
+    - duration: 60
+      arrivalRate: 10
+  processor: "./processor.js"
+scenarios:
+  - flow:
+    - loop:
+      - function: "generateId"
+      - get:
+          url: "/api/bookings/{{ id }}"
+      count: 200
