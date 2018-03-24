@@ -21,6 +21,12 @@ const cache = (req, res, next) => {
   });
 };
 
+app.get('*.js', (req, res, next) => {
+  req.url += '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
 app.use(express.static(`${__dirname}/../client/dist`));
 app.use(bodyParser.json());
 app.use(cors());

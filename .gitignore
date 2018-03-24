@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 dist
 newrelic.js
+newrelic_agent.log
