@@ -1,5 +1,8 @@
 node_modules
 .DS_Store
-dist
+app.js
+app.js.gz
+app-server.js
+app-server.js.gz
 newrelic.js
 newrelic_agent.log

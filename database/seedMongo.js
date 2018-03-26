@@ -1,11 +1,11 @@
-const { createData } = require('./createData');
+const { createMongoData } = require('./createData');
 const db = require('./mongoSchema');
 
 function batchInsert(index) {
-  const insertionCount = 100000;
+  const insertionCount = 50000;
   const dataArray = [];
   for (let i = 1; i <= insertionCount; i++) {
-    const entry = createData(i + index);
+    const entry = createMongoData(i + index);
     dataArray.push(entry);
   }
   return db.saveMany(dataArray)
@@ -14,12 +14,9 @@ function batchInsert(index) {
 
 async function batchInsertNTimes(n) {
   for (let i = 0; i < n; i++) {
-    await batchInsert(i * 100000);
+    await batchInsert(i * 50000);
   }
   console.log('done');
 }
 
-// batchInsertNTimes(100);
-for (var i = 0; i < 4; i++) {
-  console.log(createData(i));
-}
+batchInsertNTimes(50);
