@@ -1,6 +1,7 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/bookings');
+mongoose.connect(`mongodb://${process.env.DB_HOST}/bookings`);
 
 const bookingsSchema = mongoose.Schema({
   id: {

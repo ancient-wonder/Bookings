@@ -7,6 +7,7 @@ import MdClear from 'react-icons/lib/md/clear';
 import BookingPrices from './BookingPrices.jsx';
 import axios from 'axios';
 import moment from 'moment';
+require('dotenv').config();
 
 const BookingsMain = styled.div`
   width: 396px;
@@ -122,8 +123,8 @@ export default class Bookings extends React.Component {
     }
   }
   fetchInfo() {
-    let id = this.props.itemid;
-    axios.get(`http://localhost:3002/api/bookings/${id}`)
+    let id = this.props.id;
+    axios.get(`http://${process.env.HOST}:3002/api/bookings/${id}`)
       .then((response) => {
         this.setState(() => ({ data: response.data[0] }));
       })

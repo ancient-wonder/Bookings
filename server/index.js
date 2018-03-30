@@ -35,8 +35,9 @@ const port = 3002;
 
 app.get('/api/bookings/:id', cache, async (req, res) => {
   try {
-    console.log(req.params.id);
-    const data = await db.find(req.params.id);
+    let id = req.params.id;
+    if(id === undefined) { throw 'id is not defined'; }
+    const data = await db.find(id);
     client.setex(req.params.id, 180, JSON.stringify(data));
     res.send(data);
   } catch (error) {
