@@ -5,6 +5,9 @@ const common = {
   plugins: [
     new Dotenv(),
   ],
+  node: {
+    fs: 'empty',
+  },
 };
 
 
